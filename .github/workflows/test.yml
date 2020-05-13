@@ -34,7 +34,9 @@ jobs:
               "fields": [
                 {
                   "title": "Commit Message",
-                  "value": "${{ github.event.head_commit.message }}"
+                  "value": "Merge pull request #2 from tokorom/test
+                    
+                    複数行のcommit mesages "
                 },
                 {
                   "title": "GitHub Actions URL",
