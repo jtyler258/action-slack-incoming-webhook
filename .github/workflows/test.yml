@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - run: ${{ github.event.head_commit.message }}
     - uses: ./
       env:
         INCOMING_WEBHOOK_URL: ${{ secrets.INCOMING_WEBHOOK_URL }}
