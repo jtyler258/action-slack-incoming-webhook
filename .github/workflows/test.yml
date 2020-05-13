@@ -12,8 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - run: ${{ github.event.head_commit.message }}
-    - uses: ./
+    - run: echo "${{ github.event.head_commit.message }}" | tr '\n' ' '
+    - name: get commit message
+      run: echo ::set-env name=COMMIT_MESSAGE::$(echo "${{ github.event.head_commit.message }}" | tr '\n' ' ')
+    - name: post a message to slack
+      uses: ./
       env:
         INCOMING_WEBHOOK_URL: ${{ secrets.INCOMING_WEBHOOK_URL }}
       with:
@@ -27,9 +30,7 @@ jobs:
               "fields": [
                 {
                   "title": "Commit Message",
-                  "value": "Merge pull request #2 from tokorom/test
-                    
-                    複数行のcommit mesages "
+                  "value": "${{ env.COMMIT_MESSAGE }}
                 },
                 {
                   "title": "GitHub Actions URL",
